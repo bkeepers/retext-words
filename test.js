@@ -3,7 +3,7 @@
  * @copyright 2016 Titus Wormer
  * @license MIT
  * @module retext:intensify
- * @fileoverview Test suite for `retext-simplify`.
+ * @fileoverview Test suite for `retext-words`.
  */
 
 'use strict';
@@ -11,14 +11,14 @@
 /* Dependencies. */
 var test = require('tape');
 var retext = require('retext');
-var simplify = require('./');
+var words = require('./');
 
 /* Tests. */
-test('simplify', function (t) {
+test('words', function (t) {
   t.plan(4);
 
   retext()
-    .use(simplify)
+    .use(words)
     .process([
       'You can utilize a shorter word.',
       'Be advised, don’t do this.',
@@ -39,7 +39,7 @@ test('simplify', function (t) {
     });
 
   retext()
-    .use(simplify, {ignore: ['utilize']})
+    .use(words, {ignore: ['utilize']})
     .process([
       'You can utilize a shorter word.',
       'Be advised, don’t do this.',

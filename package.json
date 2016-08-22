@@ -1,5 +1,5 @@
 {
-  "name": "retext-simplify",
+  "name": "retext-words",
   "version": "3.0.0",
   "description": "Check phrases for simpler alternatives",
   "license": "MIT",
@@ -18,9 +18,9 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/wooorm/retext-simplify.git"
+    "url": "https://github.com/wooorm/retext-words.git"
   },
-  "bugs": "https://github.com/wooorm/retext-simplify/issues",
+  "bugs": "https://github.com/wooorm/retext-words/issues",
   "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
   "contributors": [
     "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)"
@@ -47,8 +47,8 @@
   },
   "scripts": {
     "build-md": "remark . --quiet --frail",
-    "build-bundle": "browserify index.js --bare -s retextSimplify > retext-simplify.js",
-    "build-mangle": "esmangle retext-simplify.js > retext-simplify.min.js",
+    "build-bundle": "browserify index.js --bare -s retextWords > retext-words.js",
+    "build-mangle": "esmangle retext-words.js > retext-words.min.js",
     "build": "npm run build-md && npm run build-bundle && npm run build-mangle",
     "lint": "xo",
     "test-api": "node test.js",
@@ -65,8 +65,8 @@
     "space": true,
     "rules": {},
     "ignores": [
-      "retext-simplify.js",
-      "retext-simplify.min.js"
+      "retext-words.js",
+      "retext-words.min.js"
     ]
   },
   "remarkConfig": {

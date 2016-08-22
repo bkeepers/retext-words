@@ -2,7 +2,7 @@
  * @author Titus Wormer
  * @copyright 2016 Titus Wormer
  * @license MIT
- * @module retext:simplify
+ * @module retext:words
  * @fileoverview Check phrases for simpler alternatives.
  */
 
@@ -17,7 +17,7 @@ var search = require('nlcst-search');
 var patterns = require('./index.json');
 
 /* Expose. */
-module.exports = simplify;
+module.exports = words;
 
 /* List of all phrases. */
 var list = keys(patterns);
@@ -33,7 +33,7 @@ var list = keys(patterns);
  *   - List of phrases to *not* warn about.
  * @return {Function} - `transformer`.
  */
-function simplify(processor, options) {
+function words(processor, options) {
   var ignore = (options || {}).ignore || [];
   var phrases = difference(list, ignore);
 
@@ -68,7 +68,7 @@ function simplify(processor, options) {
       });
 
       message.ruleId = phrase.replace(/\s+/g, '-').toLowerCase();
-      message.source = 'retext-simplify';
+      message.source = 'retext-words';
     });
   }
 }

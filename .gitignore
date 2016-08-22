@@ -3,5 +3,5 @@
 node_modules/
 .nyc_output/
 coverage/
-retext-simplify.js
-retext-simplify.min.js
+retext-words.js
+retext-words.min.js
