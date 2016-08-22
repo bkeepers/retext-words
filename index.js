@@ -14,13 +14,9 @@ var difference = require('lodash.difference');
 var nlcstToString = require('nlcst-to-string');
 var quotation = require('quotation');
 var search = require('nlcst-search');
-var patterns = require('./index.json');
 
 /* Expose. */
 module.exports = words;
-
-/* List of all phrases. */
-var list = keys(patterns);
 
 /**
  * Attacher.
@@ -29,13 +25,16 @@ var list = keys(patterns);
  *   - Instance.
  * @param {Object?} [options]
  *   - Configuration.
+ * @param {Array.<object>} [options.patterns]
+ *   - List of patterns to search, and suggested replacements or omisisons.
  * @param {Array.<string>?} [options.ignore]
  *   - List of phrases to *not* warn about.
  * @return {Function} - `transformer`.
  */
 function words(processor, options) {
+  var patterns = (options || {}).patterns || {};
   var ignore = (options || {}).ignore || [];
-  var phrases = difference(list, ignore);
+  var phrases = difference(keys(patterns), ignore);
 
   return transformer;
 
@@ -48,7 +47,7 @@ function words(processor, options) {
   function transformer(tree, file) {
     search(tree, phrases, function (match, position, parent, phrase) {
       var pattern = patterns[phrase];
-      var replace = pattern.replace;
+      var replace = [].concat(pattern.replace || []);
       var value = quotation(nlcstToString(match), '“', '”');
       var message;
 

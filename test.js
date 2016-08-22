@@ -12,13 +12,18 @@
 var test = require('tape');
 var retext = require('retext');
 var words = require('./');
+var patterns = {
+  "utilize": { replace: "use" },
+  "be advised": { omit: true },
+  "appropriate": { replace: [ "proper", "right" ], omit: true },
+}
 
 /* Tests. */
 test('words', function (t) {
   t.plan(4);
 
   retext()
-    .use(words)
+    .use(words, {patterns: patterns})
     .process([
       'You can utilize a shorter word.',
       'Be advised, don’t do this.',
@@ -34,12 +39,12 @@ test('words', function (t) {
           '3:12-3:23: Replace “appropriate” with “proper”, ' +
           '“right”, or remove it'
         ],
-        'should warn about simpler synonyms'
+        'should warn about replacements'
       );
     });
 
   retext()
-    .use(words, {ignore: ['utilize']})
+    .use(words, {patterns: patterns, ignore: ['utilize']})
     .process([
       'You can utilize a shorter word.',
       'Be advised, don’t do this.',
