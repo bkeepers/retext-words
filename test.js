@@ -3,7 +3,7 @@
  * @copyright 2016 Titus Wormer
  * @license MIT
  * @module retext:intensify
- * @fileoverview Test suite for `retext-simplify`.
+ * @fileoverview Test suite for `retext-words`.
  */
 
 'use strict';
@@ -11,18 +11,25 @@
 /* Dependencies. */
 var test = require('tape');
 var retext = require('retext');
-var simplify = require('./');
+var words = require('./');
+var patterns = {
+  "utilize": { replace: "use" },
+  "be advised": { omit: true },
+  "appropriate": { replace: [ "proper", "right" ], omit: true },
+  "git": { replace: "Git", caseSensitive: true }
+}
 
 /* Tests. */
-test('simplify', function (t) {
+test('words', function (t) {
   t.plan(4);
 
   retext()
-    .use(simplify)
+    .use(words, {patterns: patterns})
     .process([
       'You can utilize a shorter word.',
       'Be advised, don’t do this.',
-      'That’s the appropriate thing to do.'
+      'That’s the appropriate thing to do.',
+      'You can use git. Git is better than the alternatives.'
     ].join('\n'), function (err, file) {
       t.ifError(err, 'should not fail (#1)');
 
@@ -32,14 +39,15 @@ test('simplify', function (t) {
           '1:9-1:16: Replace “utilize” with “use”',
           '2:1-2:11: Remove “Be advised”',
           '3:12-3:23: Replace “appropriate” with “proper”, ' +
-          '“right”, or remove it'
+          '“right”, or remove it',
+          '4:13-4:16: Replace “git” with “Git”'
         ],
-        'should warn about simpler synonyms'
+        'should warn about replacements'
       );
     });
 
   retext()
-    .use(simplify, {ignore: ['utilize']})
+    .use(words, {patterns: patterns, ignore: ['utilize']})
     .process([
       'You can utilize a shorter word.',
       'Be advised, don’t do this.',
