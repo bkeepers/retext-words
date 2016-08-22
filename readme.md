@@ -1,24 +1,31 @@
-# retext-simplify [![Build Status][travis-badge]][travis] [![Coverage Status][codecov-badge]][codecov]
+# retext-words [![Build Status][travis-badge]][travis] [![Coverage Status][codecov-badge]][codecov]
 
-Check phrases for simpler alternatives with [**retext**][retext].
+Check phrases for alternatives with [**retext**][retext].
 
 ## Installation
 
 [npm][]:
 
 ```bash
-npm install retext-simplify
+npm install retext-words
 ```
 
 ## Usage
 
 ```js
 var retext = require('retext');
-var simplify = require('retext-simplify');
+var words = require('retext-words');
 var report = require('vfile-reporter');
 
 retext()
-    .use(simplify)
+    .use(words, {
+      patterns: {
+        "utilize": { replace: "use" },
+        "be advised": { omit: true },
+        "appropriate": { replace: [ "proper", "right" ], omit: true },
+        "git": { replace: "Git", caseSensitive: true }
+      }
+    })
     .process([
         'You can utilize a shorter word.',
         'Be advised, don’t do this.',
@@ -40,7 +47,7 @@ Yields:
 
 ## API
 
-### `retext().use(simplify[, options])`
+### `retext().use(words[, options])`
 
 Check phrases for simpler alternatives.
 
@@ -54,13 +61,13 @@ Check phrases for simpler alternatives.
 
 <!-- Definitions -->
 
-[travis-badge]: https://img.shields.io/travis/wooorm/retext-simplify.svg
+[travis-badge]: https://img.shields.io/travis/wooorm/retext-words.svg
 
-[travis]: https://travis-ci.org/wooorm/retext-simplify
+[travis]: https://travis-ci.org/wooorm/retext-words
 
-[codecov-badge]: https://img.shields.io/codecov/c/github/wooorm/retext-simplify.svg
+[codecov-badge]: https://img.shields.io/codecov/c/github/wooorm/retext-words.svg
 
-[codecov]: https://codecov.io/github/wooorm/retext-simplify
+[codecov]: https://codecov.io/github/wooorm/retext-words
 
 [npm]: https://docs.npmjs.com/cli/install
 

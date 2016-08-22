@@ -18,9 +18,9 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/wooorm/retext-words.git"
+    "url": "https://github.com/bkeepers/retext-words.git"
   },
-  "bugs": "https://github.com/wooorm/retext-words/issues",
+  "bugs": "https://github.com/bkeepers/retext-words/issues",
   "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
   "contributors": [
     "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)"
