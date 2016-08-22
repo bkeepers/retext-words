@@ -16,6 +16,7 @@ var patterns = {
   "utilize": { replace: "use" },
   "be advised": { omit: true },
   "appropriate": { replace: [ "proper", "right" ], omit: true },
+  "git": { replace: "Git", caseSensitive: true }
 }
 
 /* Tests. */
@@ -27,7 +28,8 @@ test('words', function (t) {
     .process([
       'You can utilize a shorter word.',
       'Be advised, don’t do this.',
-      'That’s the appropriate thing to do.'
+      'That’s the appropriate thing to do.',
+      'You can use git. Git is better than the alternatives.'
     ].join('\n'), function (err, file) {
       t.ifError(err, 'should not fail (#1)');
 
@@ -37,7 +39,8 @@ test('words', function (t) {
           '1:9-1:16: Replace “utilize” with “use”',
           '2:1-2:11: Remove “Be advised”',
           '3:12-3:23: Replace “appropriate” with “proper”, ' +
-          '“right”, or remove it'
+          '“right”, or remove it',
+          '4:13-4:16: Replace “git” with “Git”'
         ],
         'should warn about replacements'
       );

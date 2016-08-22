@@ -51,6 +51,10 @@ function words(processor, options) {
       var value = quotation(nlcstToString(match), '“', '”');
       var message;
 
+      if (pattern.caseSensitive && nlcstToString(match) !== phrase) {
+        return;
+      }
+
       if (pattern.omit && !replace.length) {
         message = 'Remove ' + value;
       } else {
